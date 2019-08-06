@@ -1,0 +1,12 @@
+<div *ngFor="let detail of empDetails">
+
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" [src]="detail.url" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{detail.fname+" "+detail.lname}}</h5>
+            <p class="card-text">{{detail.pos}}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+              
+</div>
