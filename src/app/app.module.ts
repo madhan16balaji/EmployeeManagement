@@ -24,8 +24,7 @@ import { CartService } from './cart.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule,
-    StorageSe
+    ReactiveFormsModule
   ],
   providers: [CartService],
   bootstrap: [AppComponent]
