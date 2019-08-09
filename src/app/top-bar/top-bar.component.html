@@ -1,9 +1,14 @@
-<a routerLink="/home">
-<h1>
-    {{ title }}
-</h1>
-</a>
-<div>
-    <Input type="button" class="btn btn-outline-light m-2" value="Add Employee" routerLink="/signup" />
-    <Input type="button" class="btn btn-outline-light m-2" value="Employee Cart" routerLink="/cart" />
-</div>
+
+<mat-toolbar>
+    <mat-toolbar-row class="top-bar-row">
+        <div>
+            <a style="cursor: pointer">
+                <h1 routerLink="/home">{{ title }}</h1>
+            </a>
+        </div>
+        <div>
+            <button class="btn btn-outline-light m-2" [routerLink]="['/signup','new']" >Add Employee</button>
+            <button class="btn btn-outline-light m-2" [routerLink]="['/cart']" >Employee Cart</button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

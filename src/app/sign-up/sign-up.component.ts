@@ -1,8 +1,9 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { sFields } from './sign-up-fields';
 import { CartService } from '../cart.service';
+import { sFields } from './sign-up-fields';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,7 +11,23 @@ import { CartService } from '../cart.service';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
+
   s_Fields;
+  isNew : boolean=true;
+  index = 'new';
+  empDetail = {
+    fname: '',
+    lname: '',
+    eId: '',
+    sex: '',
+    dob: '',
+    mail:'',
+    qual: '',
+    pos: '',
+    aadhar: '',
+    pan: '',
+    dp: ''
+  };
   signupForm;
   flag=true;
   vflag=true;
@@ -20,24 +37,13 @@ export class SignUpComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private cartService: CartService,
+    private route: ActivatedRoute,
+    private router:Router,
   )
   
   { 
     this.s_Fields=sFields;
-
-    this.signupForm = this.formBuilder.group({
-      fname: '',
-      lname: '',
-      eId: '',
-      sex: '',
-      dob: '',
-      mail:'',
-      qual: '',
-      pos: '',
-      aadhar: '',
-      pan: '',
-      dp: ''
-    });
+    this.signupForm = this.formBuilder.group(this.empDetail);
   }
 
 
@@ -48,9 +54,7 @@ export class SignUpComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]); // read file as data url
 
       reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = event.target.result;
-        console.log(this.url);
-
+        this.url = reader.result;
       }
     }
   }
@@ -62,16 +66,25 @@ export class SignUpComponent implements OnInit {
       }
     }
 
+
     if(this.flag && this.vflag) {
-      window.alert('Employee Details Added Successfully');
-      console.log(this.cartService.getEmpDetails());
-      formData['url']=this.url;
-      this.cartService.addToCart(formData);
+      
+      if(this.isNew) {
+        window.alert('Employee Details Added Successfully');
+        formData['url']=this.url;
+        this.cartService.addToCart(formData);
+      }
+      else {
+        window.alert('Employee Details Updated Successfully');
+        formData['url']=this.url;
+        console.log(this.url);
+        this.cartService.updateCart(formData, this.index);
+        this.router.navigate(['/cart']);
+      }
 
-      // document.getElementById('addForm').reset();
-      this.signupForm.reset();  
+      // (<HTMLInputElement>document.getElementById('addForm')).reset();
+      this.signupForm.reset();
 
-      console.log(this.cartService.getEmpDetails());
     }
     else {
       this.alertText = 'Please provide Valid Inputs';
@@ -98,12 +111,47 @@ export class SignUpComponent implements OnInit {
       this.alertText = "Invalid "+name;
       this.vflag=false;
     }
-    else{
+    else {
       this.vflag=true;
+      this.flag=true;
     }
   }
  
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.index = params.get('empId');
+      if( this.index !='new' ) {
+        this.isNew=false;
+        this.empDetail = this.cartService.getEmpDetails()[this.index];
+        let filtEmpDetail = {};
+        for(let x in this.empDetail) {
+          if(x!='url') {
+            if(x=='sex' || x=='pos' || x=='dp') {
+              filtEmpDetail[x]='';
+            }
+            else {
+              filtEmpDetail[x]=this.empDetail[x];
+            }
+          }
+        }
+        this.signupForm = this.formBuilder.group(filtEmpDetail);
+      }
+      else {
+        this.empDetail = {
+          fname: '',
+          lname: '',
+          eId: '',
+          sex: '',
+          dob: '',
+          mail:'',
+          qual: '',
+          pos: '',
+          aadhar: '',
+          pan: '',
+          dp: ''
+        };
+      }
+    });
   }
 
 }

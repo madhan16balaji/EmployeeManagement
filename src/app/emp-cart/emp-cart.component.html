@@ -1,12 +1,29 @@
-<div *ngFor="let detail of empDetails">
 
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" [src]="detail.url" alt="Card image cap">
+<mat-form-field class="search-form-field">
+    <input matInput type="text" [(ngModel)]="searchVal" (keyup)="searchEmp()" placeholder="Search" >
+    <button mat-button *ngIf="searchVal" matSuffix mat-icon-button aria-label="Clear" (click)="searchVal=''">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>
+
+<div class="row">
+    
+    <div class="card" style="width: 18rem; margin: 12px" [title]="detail.fname+'\'s Details'"
+     *ngFor="let detail of empDetails; index as empid;" (click)="openDialog(empid)">
+        
+        <img class="card-dp card-img-top" [src]="detail.url" alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">{{detail.fname+" "+detail.lname}}</h5>
+            <h5 class="card-title">{{detail.fname+" "+detail.lname}}
+                <small>({{detail.eId}})</small>
+                <br />
+                <small class="text-muted">{{detail.mail}}</small>
+            </h5>
             <p class="card-text">{{detail.pos}}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+
+            <button mat-mini-fab [routerLink]="['/signup',empid]" title="Edit">
+                <i class="material-icons" style="cursor: pointer">edit</i>
+            </button>
         </div>
     </div>
-              
+    
 </div>

@@ -1,11 +1,11 @@
 
-<form id="addForm" [formGroup]='signupForm' (ngSubmit)='onSubmit(signupForm.value)'>
+<form id="addForm" [formGroup]='signupForm' (ngSubmit)='onSubmit(signupForm.value)' style="margin-top: 85px;">
     
     <div class='field' *ngFor='let field of s_Fields'>
         
         <ng-container *ngIf="field.type=='select'; else other">
             <label class="col-sm-2" [for]="field.id">{{field.name}} :</label>
-            <select class="custom-select d-inline col-sm-4" [id]="field.id" 
+            <select class="custom-select d-inline col-sm-4" [id]="field.id"
             [name]="field.name" [formControlName]="field.id" (blur)="valid($event)">
                 <option [selected] = "true">Choose...</option>
                 <option *ngFor="let option of field.options.sort()" (blur)="valid($event)">{{option}}</option>
@@ -15,11 +15,11 @@
             <ng-container *ngIf="field.type=='file'; else others">
                 <label class="col-sm-2" [for]="field.id">{{field.name}} :</label>
                 <input class="col-sm-4" [type]="field.type" [id]="field.id" [name]="field.name" 
-                [formControlName]="field.id" (change)="valid($event); onSelectFile($event)" (blur)="valid($event)">
+                [formControlName]="field.id" (change)="valid($event); onSelectFile($event);" (blur)="valid($event)">
             </ng-container>
             <ng-template #others>
                 <label class="col-sm-2" [for]="field.id">{{field.name}} :</label>
-                <input class="col-sm-4" [type]="field.type" [id]="field.id" 
+                <input class="col-sm-4" [type]="field.type" [id]="field.id"  [value]="empDetail[field.id]"
                 [name]="field.name" [formControlName]="field.id" (blur)="valid($event)">
             </ng-template>
         </ng-template>

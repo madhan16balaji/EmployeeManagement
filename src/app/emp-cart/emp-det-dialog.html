@@ -1,0 +1,61 @@
+<head>
+  <style>
+    .image-cropper {
+      width: 150px;
+      height: 150px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+
+    img {
+        display: inline;
+        margin: 0 auto;
+        height: 100%;
+        width: 100%;
+    }
+  </style>
+</head>
+
+<h1 mat-dialog-title>Employee Details</h1>
+
+<div mat-dialog-content style="display:flex; flex-direction: row; justify-content: space-between;">
+  <div class="image-cropper" style="flex-basis: 30%">
+      <img [src]="data.url">
+  </div>
+  <div style="flex-basis: 65%">
+    <dl class="row">
+
+        <dt class="col-sm-4">Name</dt>
+        <dd class="col-sm-8" *ngIf="data.sex=='Male'">: {{'Mr. '+data.fname+' '+data.lname}}</dd>
+        <dd class="col-sm-8" *ngIf="data.sex=='Female'">: {{'Ms. '+data.fname+' '+data.lname}}</dd>
+        <dd class="col-sm-8" *ngIf="data.sex=='Other'">: {{data.fname+' '+data.lname}}</dd>
+      
+        <dt class="col-sm-4">ID</dt>
+        <dd class="col-sm-8">: {{data.eId}}</dd>
+
+        <dt class="col-sm-4 text-truncate">Date Of Birth</dt>
+        <dd class="col-sm-8">: {{data.dob}}</dd>
+      
+        <dt class="col-sm-4">Email</dt>
+        <dd class="col-sm-8">: {{data.mail}}</dd>
+      
+        <dt class="col-sm-4 text-truncate">Qualification</dt>
+        <dd class="col-sm-8">: {{data.qual}}</dd>
+
+        <dt class="col-sm-4 text-truncate">Position</dt>
+        <dd class="col-sm-8">: {{data.pos}}</dd>
+
+        <dt class="col-sm-4 text-truncate">Aadhar no.</dt>
+        <dd class="col-sm-8">: {{data.aadhar}}</dd>
+
+        <dt class="col-sm-4 text-truncate">PAN no.</dt>
+        <dd class="col-sm-8">: {{data.pan}}</dd>
+
+      </dl>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

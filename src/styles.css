@@ -1,16 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 app-top-bar {
+    position: fixed;
     width: 100%;
-    height: 68px;
-    background-color: #54a51e;
-    padding: 16px;
+    top: 0;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.top-bar-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    background-color: black;
 }
 
-h1{
+.search-form-field {
+    width: 300px;
+    margin-top: 50px;
+}
+
+h1 {
     color: aliceblue;
 }
 
@@ -25,3 +37,19 @@ label {
     font-weight: bold;
     display: block;
 }
+
+.card {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.30);
+}
+
+.card-dp { 
+    width: 300px;
+    height: 220px;
+    overflow: hidden;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

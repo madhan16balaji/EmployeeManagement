@@ -2,13 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StorageServiceModule } from 'ngx-webstorage-service';
+import { MaterialModule } from './material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
-import { EmpCartComponent } from './emp-cart/emp-cart.component';
+import { EmpCartComponent, EmpDetDialog } from './emp-cart/emp-cart.component';
 import { CartService } from './cart.service';
 
 @NgModule({
@@ -17,16 +21,23 @@ import { CartService } from './cart.service';
     TopBarComponent,
     SignUpComponent,
     HomeComponent,
-    EmpCartComponent
+    EmpCartComponent,
+    EmpDetDialog
   ],
   imports: [
     NgbModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StorageServiceModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [CartService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    EmpDetDialog
+]
 })
 export class AppModule { }
