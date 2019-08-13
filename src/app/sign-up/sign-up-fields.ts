@@ -42,7 +42,7 @@ export const sFields = [
         options : [
             'Product Engineer',
             'Power Programmer', 
-            'Product Engineer Trainee', 
+            'Product Engineer Trainee',
             'Intern', 
             'Front End Developer',
             'Back End Developer',

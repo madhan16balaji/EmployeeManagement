@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
-import { EmpCartComponent, EmpDetDialog } from './emp-cart/emp-cart.component';
+import { EmpCartComponent, EmpDetDialog, DelAlertDialog } from './emp-cart/emp-cart.component';
 import { CartService } from './cart.service';
 
 @NgModule({
@@ -22,7 +22,8 @@ import { CartService } from './cart.service';
     SignUpComponent,
     HomeComponent,
     EmpCartComponent,
-    EmpDetDialog
+    EmpDetDialog,
+    DelAlertDialog
   ],
   imports: [
     NgbModule,
@@ -37,7 +38,8 @@ import { CartService } from './cart.service';
   providers: [CartService],
   bootstrap: [AppComponent],
   entryComponents: [
-    EmpDetDialog
+    EmpDetDialog,
+    DelAlertDialog
 ]
 })
 export class AppModule { }

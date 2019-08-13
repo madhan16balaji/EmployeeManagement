@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>
+    <mat-icon>warning</mat-icon>
+    Are you sure</h2>
+<div mat-dialog-content>
+  <p>Do You Want to Delete {{data.empdet.fname}}'s' details</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()" cdkFocusInitial>No</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]=true>Yes</button>
+</div>

@@ -10,16 +10,22 @@ app-top-bar {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
-.top-bar-row {
+.card .delete-btn {
+    display: none;
+}
+
+
+
+.flex-space-btw {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: black;
+    padding: 0px 16px 16px;
 }
 
 .search-form-field {
     width: 300px;
-    margin-top: 50px;
+    margin-top: 60px;
 }
 
 h1 {
@@ -40,9 +46,15 @@ label {
 
 .card {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 19rem;
+    margin: 12px;
 }
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.30);
+}
+
+.card:hover .delete-btn {
+    display: block;
 }
 
 .card-dp { 

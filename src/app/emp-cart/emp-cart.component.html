@@ -1,29 +1,46 @@
 
 <mat-form-field class="search-form-field">
     <input matInput type="text" [(ngModel)]="searchVal" (keyup)="searchEmp()" placeholder="Search" >
-    <button mat-button *ngIf="searchVal" matSuffix mat-icon-button aria-label="Clear" (click)="searchVal=''">
+    <button mat-button *ngIf="searchVal" matSuffix mat-icon-button aria-label="Clear" 
+     (click)="searchVal=''; searchEmp();">
         <mat-icon>close</mat-icon>
     </button>
 </mat-form-field>
+<mat-icon class="d-inline">search</mat-icon>
 
+<p *ngIf="searchRes.length<1">No Match Found for : <strong>{{searchVal}}</strong></p>
 <div class="row">
-    
-    <div class="card" style="width: 18rem; margin: 12px" [title]="detail.fname+'\'s Details'"
-     *ngFor="let detail of empDetails; index as empid;" (click)="openDialog(empid)">
+    <div *ngFor="let detail of empDetails; index as empid;">
+        <div class="card" *ngIf="searchRes.includes(empid)"
+         [title]="detail.fname+'\'s Details'" >
         
-        <img class="card-dp card-img-top" [src]="detail.url" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">{{detail.fname+" "+detail.lname}}
-                <small>({{detail.eId}})</small>
-                <br />
-                <small class="text-muted">{{detail.mail}}</small>
-            </h5>
-            <p class="card-text">{{detail.pos}}</p>
-
-            <button mat-mini-fab [routerLink]="['/signup',empid]" title="Edit">
-                <i class="material-icons" style="cursor: pointer">edit</i>
-            </button>
+            <div (click)="openDialog(empid)">
+                <img class="card-dp card-img-top" [src]="detail.url" alt="Card image cap">
+                <div class="card-body">
+            
+                    <h5 class="card-title">{{detail.fname+" "+detail.lname}}
+                        <small>({{detail.eId}})</small>
+                        <br />
+                        <small class="text-muted">{{detail.mail}}</small>
+                    </h5>
+                    <p class="card-text">{{detail.pos}}</p>
+                </div>       
+            </div> 
+            <div class="flex-space-btw">
+                <button style="outline: none" mat-mini-fab [routerLink]="['/signup',empid]" title="Edit">
+                    <i class="material-icons">edit</i>
+                </button>
+                <button style="outline: none" class="delete-btn" mat-icon-button color="warn" title="Delete" (click)="onDelete(empid)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
-    
+
+    <div class="card" routerLink="/signup/new" title="Add New Employee Details" *ngIf="!searchVal">
+        <div class="card-body" style="background-color: gray; height: 25rem; text-align: center; padding-top: 35%">
+            <h2 style="color: wheat; font-size: 100px">+</h2>
+            <h2 style="color: wheat;">ADD EMPLOYEE</h2>
+        </div>
+    </div> 
 </div>

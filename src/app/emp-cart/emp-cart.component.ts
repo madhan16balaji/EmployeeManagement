@@ -17,12 +17,16 @@ export class EmpCartComponent implements OnInit {
   empDetails;
   searchVal='';
   searchRes = [];
+  delflag=false;
 
   constructor(
     private cartService: CartService,
     public dialog: MatDialog,
   ) { 
     this.empDetails = this.cartService.getEmpDetails();
+    for(let i in this.empDetails) {
+      this.searchRes.push(parseInt(i));
+    }
   }
 
   searchEmp(){
@@ -30,31 +34,50 @@ export class EmpCartComponent implements OnInit {
       this.searchRes = [];
       for(let i in this.empDetails) {
         let name = (this.empDetails[i].fname+' '+this.empDetails[i].lname).toLowerCase();
+        let eId = (this.empDetails[i].eId).toLowerCase();
+        let pos = (this.empDetails[i].pos).toLowerCase();
+
         let sVal = this.searchVal.toLowerCase();
 
-        if(name.includes(sVal)) {
-          this.searchRes.push(i);
-          console.log(this.searchRes);
+        if(name.includes(sVal) || eId.includes(sVal) || pos.includes(sVal) ) {
+          this.searchRes.push(parseInt(i));
         }
       }
     }
     else {
       this.searchRes = [];
+      for(let i in this.empDetails) {
+          this.searchRes.push(parseInt(i));
+      }
     }
   }
 
   openDialog(i) {
-    const dialogRef = this.dialog.open(EmpDetDialog, {
+    const dialogRef1 = this.dialog.open(EmpDetDialog, {
       height: '400px',
       width: '600px',
       data: this.empDetails[i]
     });
-    console.log(this.empDetails[i]);
     
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   this.animal = result;
-    // });
+  }
+
+  onDelete(i) {
+    console.log(i);
+    const dialogRef2 = this.dialog.open(DelAlertDialog, {
+      height: '200px',
+      width: '350px',
+      data: {delflag: this.delflag, empdet: this.empDetails[i]}
+    });
+
+    dialogRef2.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.delflag=result;
+      if(this.delflag) {
+        this.cartService.deleteEmpDetail(i);
+        this.empDetails = this.cartService.getEmpDetails();
+        this.searchEmp();
+      }
+    });
   }
 
   ngOnInit() {
@@ -69,11 +92,28 @@ export class EmpCartComponent implements OnInit {
 export class EmpDetDialog {
 
   constructor(
-    public dialogRef: MatDialogRef<EmpDetDialog>,
+    public dialogRef1: MatDialogRef<EmpDetDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef1.close();
+  }
+
+}
+
+@Component({
+  selector: 'del-alert-dialog',
+  templateUrl: 'del-alert-dialog.html',
+})
+export class DelAlertDialog {
+
+  constructor(
+    public dialogRef2: MatDialogRef<EmpDetDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef2.close();
   }
 
 }

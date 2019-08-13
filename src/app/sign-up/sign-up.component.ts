@@ -32,7 +32,7 @@ export class SignUpComponent implements OnInit {
   flag=true;
   vflag=true;
   alertText='';
-  url : any ='';
+  url : any ='assets/no_img_prev.jpg';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -102,6 +102,9 @@ export class SignUpComponent implements OnInit {
 
 
     if(val=='' || (type=='select-one' && val=='Choose...')) {
+      if(type=="file") {
+        this.url = 'assets/no_img_prev.jpg';
+      }
       this.alertText = name+' cannot be empty';
       this.vflag=false;
     }
