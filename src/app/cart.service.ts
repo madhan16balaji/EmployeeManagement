@@ -47,5 +47,4 @@ export class CartService {
 
     console.log(this.storage.get(STORAGE_KEY) || 'Local Storage is Empty');
   }
-
 }
